@@ -4,11 +4,20 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-application-local.yml
-*.log
-node_modules/
 
-## IntelliJ IDEA
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
@@ -17,21 +26,19 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-## VS Code
-.vscode/
-
-## STS
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-## NetBeans
+### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### frontend ###
+frontend/npm-*
+
+### etc ###
+src/main/resources/static/
+LOG_FILE_IS_UNDEFINED*
