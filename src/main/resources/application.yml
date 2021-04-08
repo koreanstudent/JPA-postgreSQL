@@ -13,15 +13,12 @@ spring:
         dialect:
           PostgreSQLDialect:
     hibernate:
-      ddl-auto: update
-    open-in-view: false
+      ddl-auto: create
     properties:
       hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
-        id:
-          new_generator_mappings: true
+        format_sql: true
+        show_sql: true
+
 
 server:
   port: 8085
