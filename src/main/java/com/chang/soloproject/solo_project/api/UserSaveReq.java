@@ -40,6 +40,7 @@ public class UserSaveReq {
     }
 
     public User toEntity() {
+        System.out.println("toEntity" + loginId);
         return User.builder()
                 .loginId(loginId)
                 .password(password)

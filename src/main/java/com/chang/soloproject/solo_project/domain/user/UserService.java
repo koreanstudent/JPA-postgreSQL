@@ -17,14 +17,13 @@ public class UserService {
     /**
      * [사용자] 단건 등록
      */
-    @Transactional
     public Long saveUser(UserSaveReq userSaveReq) {
         // 패스워드 암호화
         String rawPassword = userSaveReq.getPassword();
         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
         userSaveReq.changePassword(encodedPassword);
 
-        System.out.println("@@@@@@@@@@@@@" +userSaveReq);
+
         return userRepository.save(userSaveReq.toEntity()).getId();
 
     }
