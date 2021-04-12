@@ -27,9 +27,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@DataJpaTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@ExtendWith({SpringExtension.class, RestDocumentationExtension.class})
 @AutoConfigureRestDocs
 @Import(RestDocsConfiguration.class)
 @WebAppConfiguration
@@ -42,8 +39,7 @@ public class BaseTest {
     @Autowired
     protected ObjectMapper objectMapper;
 
-//    @Autowired
-//    protected ModelMapper modelMapper;
+
 //    @Autowired
 //    protected ModelMapper modelMapper;
 }
