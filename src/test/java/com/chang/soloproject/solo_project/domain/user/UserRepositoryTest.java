@@ -23,9 +23,6 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    PasswordEncoder passwordEncoder;
-
     @Test
     void save() {
 
