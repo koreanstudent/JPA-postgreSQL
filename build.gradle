@@ -14,9 +14,9 @@ ext {
 }
 
 
-bootRun {
+/*bootRun {
     environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: 'local'
-}
+}*/
 
 repositories {
     mavenCentral()
@@ -39,6 +39,7 @@ dependencies {
     testCompileOnly('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE' // (4)
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.2.RELEASE' // (5)
 
@@ -54,9 +55,22 @@ asciidoctor {
     dependsOn test          // (8) gradle build 시 test → asciidoctor 순으로 수행됩니다.
 }
 
-bootJar {
-    dependsOn asciidoctor                      // (9) gradle build 시 asciidoctor → bootJar 순으로 수행됩니다.
+/*bootJar {
+    dependsOn asciidoctor                // (9) gradle build 시 asciidoctor → bootJar 순으로 수행됩니다.
     from ("${asciidoctor.outputDir}/html5") {  // (10)  gradle build 시 ./build/asciidoc/html5/ 에 html 파일이 생깁니다.
         into 'static/docs'
     }
+}*/
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+
+    from file("build/asciidoc/html5/")
+    into file("src/main/resources/static/docs")
 }
+
+build {
+    dependsOn copyDocument
+}
+
+
