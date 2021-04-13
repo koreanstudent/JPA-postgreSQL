@@ -20,7 +20,7 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name ="user_login_id")
+    @Column(name ="user_login_id", unique = true)
     private String loginId;
 
     @Column(name = "user_password")

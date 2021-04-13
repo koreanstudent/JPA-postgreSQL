@@ -4,8 +4,8 @@ import com.chang.soloproject.solo_project.domain.user.User;
 import com.chang.soloproject.solo_project.domain.user.UserPermission;
 import com.chang.soloproject.solo_project.domain.user.UserRole;
 
-import lombok.Builder;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,8 +15,12 @@ import java.util.Set;
 
 
 @Data
+@AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class UserSaveReq {
+
+
 
     @NotBlank
     @Size(max = 16)
@@ -35,12 +39,13 @@ public class UserSaveReq {
     @NotNull
     private UserRole role;
 
+
+
     public void changePassword(String password) {
         this.password = password;
     }
 
     public User toEntity() {
-        System.out.println("toEntity" + loginId);
         return User.builder()
                 .loginId(loginId)
                 .password(password)

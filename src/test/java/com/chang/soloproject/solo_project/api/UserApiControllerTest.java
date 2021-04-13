@@ -1,21 +1,13 @@
 package com.chang.soloproject.solo_project.api;
 
 import com.chang.soloproject.solo_project.domain.common.BaseTest;
-import com.chang.soloproject.solo_project.domain.user.UserRepository;
 import com.chang.soloproject.solo_project.domain.user.UserRole;
-import com.chang.soloproject.solo_project.domain.user.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -32,6 +24,7 @@ public class UserApiControllerTest extends BaseTest {
 
 
     @Test
+    @Rollback(false)
     public void saveUser() throws Exception {
 
         String loginId = "hn123";
@@ -39,8 +32,8 @@ public class UserApiControllerTest extends BaseTest {
         String encodedPassword = new BCryptPasswordEncoder().encode(password);
         UserSaveReq request = UserSaveReq.builder()
                 .loginId(loginId)
-                .name("이창현")
                 .password(encodedPassword)
+                .name("이창현")
                 .permissions("write")
                 .role(UserRole.ADMIN)
                 .build();
@@ -57,7 +50,7 @@ public class UserApiControllerTest extends BaseTest {
         result
                 .andExpect(status().isCreated())
                 .andExpect(header().exists(HttpHeaders.LOCATION))
-                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json"))
                 .andDo(print())
                 .andDo(document("create-event" ,
                         requestHeaders(
