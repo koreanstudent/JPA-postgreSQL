@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class UserApiControllerTest extends BaseTest {
 
- 
+
 
     @Test
     @Rollback(false)
@@ -52,7 +52,7 @@ public class UserApiControllerTest extends BaseTest {
                 .andExpect(header().exists(HttpHeaders.LOCATION))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json"))
                 .andDo(print())
-                .andDo(document("create-event" ,
+                .andDo(document("create-user" ,
                         requestHeaders(
                         headerWithName(HttpHeaders.ACCEPT).description("accept header"),
                         headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
