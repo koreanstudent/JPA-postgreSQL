@@ -30,6 +30,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 @AutoConfigureRestDocs
 @Import(RestDocsConfiguration.class)
 @WebAppConfiguration
+@Disabled //테스트 제외 junit4 @ignore 동일
 public class BaseTest {
 
 
@@ -39,18 +40,13 @@ public class BaseTest {
     @Autowired
     protected ObjectMapper objectMapper;
 
-
-
-    @Autowired
-    private WebApplicationContext context;
 //    @Autowired
 //    protected ModelMapper modelMapper;
 
-    @BeforeEach
+  /*  @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))
-
                 .build();
-    }
+    }*/
 }
