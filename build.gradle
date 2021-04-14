@@ -39,6 +39,8 @@ dependencies {
     testCompileOnly('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testRuntimeOnly 'com.h2database:h2'
+
 
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE' // (4)
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.2.RELEASE' // (5)
