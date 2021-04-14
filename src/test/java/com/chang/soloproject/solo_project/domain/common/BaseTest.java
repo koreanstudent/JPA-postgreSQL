@@ -40,6 +40,17 @@ public class BaseTest {
     protected ObjectMapper objectMapper;
 
 
+
+    @Autowired
+    private WebApplicationContext context;
 //    @Autowired
 //    protected ModelMapper modelMapper;
+
+    @BeforeEach
+    public void setUp() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))
+
+                .build();
+    }
 }

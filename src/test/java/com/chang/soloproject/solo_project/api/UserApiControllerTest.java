@@ -2,6 +2,7 @@ package com.chang.soloproject.solo_project.api;
 
 import com.chang.soloproject.solo_project.domain.common.BaseTest;
 import com.chang.soloproject.solo_project.domain.user.UserRole;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,10 +10,13 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -20,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserApiControllerTest extends BaseTest {
+
 
 
 
@@ -50,9 +55,9 @@ public class UserApiControllerTest extends BaseTest {
         result
                 .andExpect(status().isCreated())
                 .andExpect(header().exists(HttpHeaders.LOCATION))
-                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json"))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"))
                 .andDo(print())
-                .andDo(document("create-user" ,
+                .andDo(document("create-user",
                         requestHeaders(
                         headerWithName(HttpHeaders.ACCEPT).description("accept header"),
                         headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
@@ -64,6 +69,7 @@ public class UserApiControllerTest extends BaseTest {
                                 fieldWithPath("permissions").description("Name of new event"),
                                 fieldWithPath("role").description("Name of new event")
                         )
+
                         ));
 
     }
