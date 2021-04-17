@@ -1,0 +1,27 @@
+---
+spring:
+  profiles:
+    - dev
+
+logging:
+
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: trace
+    org.springframework.secruity: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+---
+spring:
+  profiles:
+    - test
+    - prod
+
+logging:
+  file:
+    max-history: 30
+    max-size: 30MB
+    name: ${file-path.log.root}/${spring.profiles}
+  level:
+    org.hibernate.SQL: debug
+    com.soon83.projectmanager: debug

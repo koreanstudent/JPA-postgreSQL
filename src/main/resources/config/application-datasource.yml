@@ -1,0 +1,82 @@
+spring:
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 20
+        max-page-size: 500
+
+---
+spring:
+  profiles: dev
+
+  datasource:
+    sql-script-encoding: utf-8
+    initialization-mode: always
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/soloproject
+    username: solo
+    password: 1234
+
+  jpa:
+    database-platform=org:
+      hibernate:
+        dialect:
+          PostgreSQLDialect:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+---
+spring:
+  profiles: test
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://nearpp.net:13306/next_project_manager
+    username: project_manager
+    password: project-manager!@34
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+---
+spring:
+  profiles: prod
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://next-energy-korea-database.cjlqdu3g7mlh.ap-northeast-2.rds.amazonaws.com:3306/next_project_manager
+    username: project_manager
+    password: project-manager!@34
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false

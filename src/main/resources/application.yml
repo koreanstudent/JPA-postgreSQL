@@ -1,31 +1,22 @@
 spring:
-  datasource:
-    sql-script-encoding: utf-8
-    initialization-mode: always
-    platform: postgres
-    url: jdbc:postgresql://localhost:5432/soloproject
-    username: solo
-    password: 1234
+  application:
+    name: project-solo
 
-  jpa:
-    database-platform=org:
-      hibernate:
-        dialect:
-          PostgreSQLDialect:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
+  banner:
+    location: banner/banner-${spring.profiles}.txt
 
-logging:
-  level:
-#    org.hibernate.SQL: DEBUG
-    org.hibernate.type: trace
-    org.springframework.secruity: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  profiles:
+    active: dev
+    include:
+      - datasource
+      - logging
 
 
 server:
   port: 8085
+
+---
+## 개발
+spring:
+  profiles: dev
+
