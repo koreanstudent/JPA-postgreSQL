@@ -25,7 +25,7 @@ public class UserApiControllerTest extends BaseTest {
     @DisplayName("유저 저장 - /api/user")
     public void saveUser() throws Exception {
 
-        String loginId = "hn123";
+        String loginId = "hn123123";
         String password = "123";
         String encodedPassword = new BCryptPasswordEncoder().encode(password);
         UserSaveReq request = UserSaveReq.builder()

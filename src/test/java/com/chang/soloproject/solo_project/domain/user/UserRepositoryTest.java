@@ -31,7 +31,7 @@ public class UserRepositoryTest {
     void save() {
 
         //given
-        String loginId = "hn123";
+        String loginId = "hn123123";
         String password = "123";
         String encodedPassword = new BCryptPasswordEncoder().encode(password);
         UserSaveReq user = UserSaveReq.builder()

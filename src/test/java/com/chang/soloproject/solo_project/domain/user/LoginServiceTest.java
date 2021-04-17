@@ -27,7 +27,7 @@ public class LoginServiceTest {
     public void findByLoginId() {
 
         //given
-        String loginId = "hn123";
+        String loginId = "hn123123";
         String password = "123";
 
         UserSaveReq user = UserSaveReq.builder()
