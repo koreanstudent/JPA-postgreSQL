@@ -1,4 +1,4 @@
-package com.chang.soloproject.solo_project.api;
+package com.chang.soloproject.solo_project.api.user.dto;
 
 import com.chang.soloproject.solo_project.domain.user.User;
 import com.chang.soloproject.solo_project.domain.user.UserPermission;

@@ -1,12 +1,16 @@
 package com.chang.soloproject.solo_project.domain.user;
 
-import com.chang.soloproject.solo_project.api.UserSaveReq;
+import com.chang.soloproject.solo_project.api.user.dto.UserRes;
+import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
+import com.chang.soloproject.solo_project.api.user.dto.UserSearchReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +29,11 @@ public class UserService {
 
 
         return userRepository.save(userSaveReq.toEntity()).getId();
+
+    }
+
+    public List<UserRes> findUsers(UserSearchReq userSearchReq){
+        return userRepository.findUsers(userSearchReq).stream().map(UserRes::new).collect(Collectors.toList());
 
     }
 }

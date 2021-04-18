@@ -1,7 +1,7 @@
 package com.chang.soloproject.solo_project.domain.user;
 
-import com.chang.soloproject.solo_project.api.Account;
-import com.chang.soloproject.solo_project.api.AccountAdapter;
+import com.chang.soloproject.solo_project.api.login.Account;
+import com.chang.soloproject.solo_project.api.login.AccountAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

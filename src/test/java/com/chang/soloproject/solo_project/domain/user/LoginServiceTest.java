@@ -1,18 +1,12 @@
 package com.chang.soloproject.solo_project.domain.user;
 
-import com.chang.soloproject.solo_project.api.Account;
-import com.chang.soloproject.solo_project.api.UserSaveReq;
-import com.mysema.commons.lang.Assert;
-import org.assertj.core.api.Assertions;
+import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class LoginServiceTest {

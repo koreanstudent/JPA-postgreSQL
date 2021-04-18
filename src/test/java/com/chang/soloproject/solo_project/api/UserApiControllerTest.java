@@ -1,5 +1,6 @@
 package com.chang.soloproject.solo_project.api;
 
+import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
 import com.chang.soloproject.solo_project.domain.common.BaseTest;
 import com.chang.soloproject.solo_project.domain.user.UserRole;
 import org.junit.jupiter.api.DisplayName;

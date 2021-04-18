@@ -1,6 +1,6 @@
 package com.chang.soloproject.solo_project.config;
 
-import com.chang.soloproject.solo_project.api.UserSaveReq;
+import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
 import com.chang.soloproject.solo_project.domain.user.UserRepository;
 import com.chang.soloproject.solo_project.domain.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
