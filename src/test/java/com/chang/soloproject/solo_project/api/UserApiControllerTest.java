@@ -8,19 +8,59 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserApiControllerTest extends BaseTest {
+
+    @Test
+    @DisplayName("유저 조회 - /api/user")
+    public void findUser() throws Exception {
+
+        String loginId = "hn123123";
+
+
+        ResultActions result = mockMvc.perform(
+                RestDocumentationRequestBuilders.get("/api/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        result
+                .andExpect(status().isOk())
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"))
+                .andDo(print())
+                .andDo(document("find-user",
+
+                        responseFields(
+                                fieldWithPath("data[0].userId").type(JsonFieldType.NUMBER).description("유저 아이디"),
+                                fieldWithPath("data[0].loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
+                                fieldWithPath("data[0].name").type(JsonFieldType.STRING).description("이름"),
+                                fieldWithPath("data[0].role").type(JsonFieldType.STRING).description("직위"),
+                                fieldWithPath("data[0].roleTitle").type(JsonFieldType.STRING).description("직위 한글"),
+                                fieldWithPath("data[0].permissions").type(JsonFieldType.STRING).description("권한"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("코드"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN).description("성공여부")
+
+
+                                )
+
+
+                ));
+
+    }
 
     @Test
     @DisplayName("유저 저장 - /api/user")
@@ -54,11 +94,11 @@ public class UserApiControllerTest extends BaseTest {
                         headerWithName(HttpHeaders.ACCEPT).description("accept header")
                         ),
                         requestFields(
-                                fieldWithPath("loginId").description("Name of new event"),
-                                fieldWithPath("name").description("Name of new event"),
-                                fieldWithPath("password").description("Name of new event"),
-                                fieldWithPath("permissions").description("Name of new event"),
-                                fieldWithPath("role").description("Name of new event")
+                                fieldWithPath("loginId").description("로그인 아이디"),
+                                fieldWithPath("name").description("이름"),
+                                fieldWithPath("password").description("비밀번호"),
+                                fieldWithPath("permissions").description("권한"),
+                                fieldWithPath("role").description("직위")
                         )
 
                         ));
