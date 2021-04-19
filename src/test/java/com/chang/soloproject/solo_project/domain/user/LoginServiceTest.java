@@ -1,6 +1,7 @@
 package com.chang.soloproject.solo_project.domain.user;
 
 import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Disabled
 public class LoginServiceTest {
 
     @Autowired

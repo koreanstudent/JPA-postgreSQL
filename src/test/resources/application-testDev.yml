@@ -1,18 +1,23 @@
 spring:
   profiles: testDev
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:tcp://localhost/~/testdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
     hikari:
-      jdbc-url: jdbc:h2:mem:testdb
-
+      jdbc-url: jdbc:h2:tcp://localhost/~/testdb
+  h2:
+    console:
+      enabled: true
 
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        show_sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
+
