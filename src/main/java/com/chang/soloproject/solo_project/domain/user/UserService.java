@@ -33,6 +33,7 @@ public class UserService {
     }
 
     public List<UserRes> findUsers(UserSearchReq userSearchReq){
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@" + userRepository.findUsers(userSearchReq).stream().map(UserRes::new).collect(Collectors.toList()));
         return userRepository.findUsers(userSearchReq).stream().map(UserRes::new).collect(Collectors.toList());
 
     }
