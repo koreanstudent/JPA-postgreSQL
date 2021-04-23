@@ -3,6 +3,8 @@ package com.chang.soloproject.solo_project.domain.user;
 import com.chang.soloproject.solo_project.api.user.dto.UserRes;
 import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
 import com.chang.soloproject.solo_project.api.user.dto.UserSearchReq;
+import com.chang.soloproject.solo_project.core.exception.BusinessException;
+import com.chang.soloproject.solo_project.core.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,8 +35,15 @@ public class UserService {
     }
 
     public List<UserRes> findUsers(UserSearchReq userSearchReq){
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@" + userRepository.findUsers(userSearchReq).stream().map(UserRes::new).collect(Collectors.toList()));
         return userRepository.findUsers(userSearchReq).stream().map(UserRes::new).collect(Collectors.toList());
+    }
 
+    /**
+     * [사용자] 단건 조회
+     */
+    public UserRes findByLoginId(String loginId) {
+        return userRepository.findByLoginId(loginId)
+                .map(UserRes::new)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
     }
 }

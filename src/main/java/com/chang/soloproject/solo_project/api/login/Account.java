@@ -3,13 +3,11 @@ package com.chang.soloproject.solo_project.api.login;
 
 import com.chang.soloproject.solo_project.domain.user.User;
 import com.chang.soloproject.solo_project.domain.user.UserRole;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
+@ToString
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +26,7 @@ public class Account {
         this.loginId = entity.getLoginId();
         this.password = entity.getPassword();
         this.name = entity.getName();
+        this.role = entity.getRole();
         this.permissions = entity.getPermissions();
 
     }

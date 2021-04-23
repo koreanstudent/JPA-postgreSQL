@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -22,13 +23,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WithMockUser
 public class UserApiControllerTest extends BaseTest {
 
     @Test
     @DisplayName("유저 조회 - /api/user")
     public void findUser() throws Exception {
 
-        String loginId = "hn123123";
+        String loginId = "user123";
 
 
         ResultActions result = mockMvc.perform(
@@ -46,6 +48,7 @@ public class UserApiControllerTest extends BaseTest {
                         responseFields(
                                 fieldWithPath("data[0].userId").type(JsonFieldType.NUMBER).description("유저 아이디"),
                                 fieldWithPath("data[0].loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
+                                fieldWithPath("data[0].password").type(JsonFieldType.STRING).description("로그인 비밀번호"),
                                 fieldWithPath("data[0].name").type(JsonFieldType.STRING).description("이름"),
                                 fieldWithPath("data[0].role").type(JsonFieldType.STRING).description("직위"),
                                 fieldWithPath("data[0].roleTitle").type(JsonFieldType.STRING).description("직위 한글"),

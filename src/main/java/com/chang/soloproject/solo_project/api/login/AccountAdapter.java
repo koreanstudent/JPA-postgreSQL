@@ -17,8 +17,8 @@ public class AccountAdapter extends User {
         this.account = account;
     }
 
-    public Account getAccount() {
-        return account;
+    public AccountUser getAccount() {
+        return new AccountUser(account);
     }
 
     // 권한 부여

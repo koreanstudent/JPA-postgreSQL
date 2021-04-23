@@ -8,6 +8,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
 #    org.hibernate.type: trace
+    com.chang.soloproject.solo_project: debug
     org.springframework.secruity: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 

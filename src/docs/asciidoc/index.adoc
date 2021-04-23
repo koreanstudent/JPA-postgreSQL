@@ -10,16 +10,14 @@
 :operation-http-request-title: http 요청
 :operation-http-response-title: http 응답
 
-[[resources]]
-= 리소스
+[[login]]
+== 로그인
 
+operation::login-user[snippets='request-fields,http-request,http-response']
 
 
 [[resources-user]]
 == 사용자
-
-
-
 
 [[resources-user-create]]
 === 사용자 생성
@@ -33,7 +31,7 @@ operation::create-user[snippets='request-fields,http-request,http-response']
 
 `GET` 요청을 사용해서 유저를 조회 할 수 있다.
 
-operation::find-user[snippets='request-fields, response-fields,http-request,http-response']
+operation::find-user[snippets='response-fields,http-request,http-response']
 
 
 

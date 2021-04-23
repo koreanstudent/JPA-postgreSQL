@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -49,13 +50,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
 
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.POST,"/api/**").permitAll()
-                .mvcMatchers(HttpMethod.GET,"/api/**").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/login").permitAll() // 인증
+                .mvcMatchers(HttpMethod.GET, "/api/test/login").permitAll() // 인증
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
-                .formLogin()
+                // 로그인 form일 경우 ~ 지금은 직접 구현
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//
+//                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
+                .invalidateHttpSession(true) // 브라우저를 종료하지 않을 때, 로그아웃을 행해서 자신이 로그인 했던 모든 정보를 삭제해야 함
+
                 .and()
                 .csrf().disable()
                 ;

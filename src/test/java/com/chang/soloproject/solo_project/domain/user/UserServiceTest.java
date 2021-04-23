@@ -42,15 +42,11 @@ public class UserServiceTest {
         String loginId = "hn123123";
         String password = "123";
 
-        UserSaveReq user = UserSaveReq.builder()
-                .loginId(loginId)
-                .name("이창현")
-                .password(password)
-                .permissions("write")
-                .role(UserRole.ADMIN)
-                .build();
+        UserSearchReq user = new UserSearchReq();
+        user.setLoginId(loginId);
         List<UserRes> resList = new ArrayList<>();
 
-        given(userService.findUsers(any())).willReturn(resList);
+        given(userService.findUsers(user)).willReturn(resList);
+
     }
 }

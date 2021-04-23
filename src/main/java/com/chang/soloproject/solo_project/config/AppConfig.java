@@ -37,10 +37,10 @@ public class AppConfig {
             public void run(ApplicationArguments args) throws Exception {
 
                 String encodedPassword = new BCryptPasswordEncoder().encode("123");
-                System.out.println(userRepository.existsUserByLoginId("hn123"));
-                if(!userRepository.existsUserByLoginId("hn123")){
+                System.out.println(userRepository.existsUserByLoginId("user123"));
+                if(!userRepository.existsUserByLoginId("user123")){
                     UserSaveReq user = UserSaveReq.builder()
-                            .loginId("hn123")
+                            .loginId("user123")
                             .name("이창현")
                             .password(encodedPassword)
                             .permissions("write")

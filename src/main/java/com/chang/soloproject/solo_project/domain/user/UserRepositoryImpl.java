@@ -34,7 +34,12 @@ public class UserRepositoryImpl extends CustomQuerydslRepositorySupport implemen
 
     @Override
     public Optional<User> findByLoginId(String loginId) {
-        return Optional.empty();
+        final User fetchUser = queryFactory
+                .selectFrom(user)
+                .where(eq(user.loginId, loginId))
+                .fetchOne();
+
+        return Optional.ofNullable(fetchUser);
     }
 
     @Override
