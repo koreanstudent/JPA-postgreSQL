@@ -38,7 +38,7 @@ public class LoginApiControllerTest extends BaseTest {
 
 
     @Test
-    @DisplayName("로그인 테스트")
+    @DisplayName("로그인 API 테스트")
     public void login() throws Exception {
 
         String loginId = "user123";
@@ -73,12 +73,18 @@ public class LoginApiControllerTest extends BaseTest {
                                 fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
                                 fieldWithPath("sessionTimeout").type(JsonFieldType.NUMBER).description("세션 타임 아웃")
 
+                        ),
+                        responseFields(
+                                fieldWithPath("data.userId").type(JsonFieldType.NUMBER).description("유저아이디"),
+                                fieldWithPath("data.name").type(JsonFieldType.STRING).description("유저이름"),
+                                fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
+                                fieldWithPath("data.password").type(JsonFieldType.STRING).description("비밀번호"),
+                                fieldWithPath("data.permissions").type(JsonFieldType.STRING).description("권한"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("코드"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN).description("성공여부")
+
                         )
-//                        responseFields(
-//                                fieldWithPath("loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
-//                                fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
-//                                fieldWithPath("sessionTimeout").type(JsonFieldType.NUMBER).description("세션 타임 아웃")
-//                        )
 
                 ));
     }

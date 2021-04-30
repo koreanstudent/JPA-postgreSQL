@@ -1,0 +1,21 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: -1
+
+file-path:
+  upload:
+    root: ${file-path.root}/uploads
+    project-files: ${file-path.upload.root}/project-files
+    excel-files: ${file-path.upload.root}/excel-files
+    temp-files: ${file-path.upload.root}/temp-files
+    app-files: ${file-path.upload.root}/app-files
+  log:
+    root: ${file-path.root}/logs
+
+---
+spring:
+  profiles:
+    - dev
+

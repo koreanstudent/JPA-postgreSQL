@@ -10,8 +10,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,23 +37,19 @@ public class LoginApiController {
         String loginId = accountGetReq.getLoginId();
         String password = accountGetReq.getPassword();
 
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + accountGetReq);
         Authentication authentication;
-//        try {
+        try {
             // Authentication을 implements한 AbstractAuthenticationToken의 하위 클래스로 username이 Principal의 역할을 하고, password가 Credential의 역할을 합니다
             // 첫번째 생성자는 인증 전의 객체를 생성하고, 두번째 생성자는 인증이 완료된 객체를 생성해줍니다.
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginId, password);
-            System.out.println("111" + token);
             authentication = authenticationManager.authenticate(token);
-            System.out.println("2222" + authentication);
             // SecurityContextHolder는 보안 주체의 세부 정보를 포함하여 응용프래그램의 현재 보안 컨텍스트에 대한 세부 정보가 저장된다
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + authentication);
-//
-//        } catch (Exception e){
-//            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + e);
-//            throw new BusinessException(ErrorCode.NOT_FOUND_USER);
-//        }
+            log.debug("### authentication: {}", authentication);
+        } catch (Exception e){
+
+            throw new BusinessException(ErrorCode.NOT_FOUND_USER);
+        }
 
         AccountAdapter accountAdapter = (AccountAdapter) authentication.getPrincipal();
         AccountUser currentUser = accountAdapter.getAccount();
@@ -63,38 +61,5 @@ public class LoginApiController {
 
         return ResponseEntity.ok(Result.success(currentUser));
     }
-    @GetMapping("/test/login")
-    public ResponseEntity _login(AccountGetReq accountGetReq, HttpSession httpSession) {
-        String loginId = accountGetReq.getLoginId();
-        String password = accountGetReq.getPassword();
 
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + accountGetReq);
-        log.debug("_login {}",accountGetReq );
-        Authentication authentication;
-//        try {
-            // Authentication을 implements한 AbstractAuthenticationToken의 하위 클래스로 username이 Principal의 역할을 하고, password가 Credential의 역할을 합니다
-            // 첫번째 생성자는 인증 전의 객체를 생성하고, 두번째 생성자는 인증이 완료된 객체를 생성해줍니다.
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginId, password);
-            System.out.println("111" + token);
-            authentication = authenticationManager.authenticate(token);
-            System.out.println("2222" + authentication);
-            // SecurityContextHolder는 보안 주체의 세부 정보를 포함하여 응용프래그램의 현재 보안 컨텍스트에 대한 세부 정보가 저장된다
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + authentication);
-//
-//        } catch (Exception e){
-//            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + e);
-//            throw new BusinessException(ErrorCode.NOT_FOUND_USER);
-//        }
-
-        AccountAdapter accountAdapter = (AccountAdapter) authentication.getPrincipal();
-        AccountUser currentUser = accountAdapter.getAccount();
-        log.debug("### currentUser: {}", currentUser);
-
-        int sessionTimeout = accountGetReq.getSessionTimeout();
-        httpSession.setMaxInactiveInterval(sessionTimeout);
-        log.debug("### sessionTimeout: {}s", sessionTimeout);
-
-        return ResponseEntity.ok(Result.success(currentUser));
-    }
 }

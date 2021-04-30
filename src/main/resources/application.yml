@@ -10,6 +10,7 @@ spring:
     include:
       - datasource
       - logging
+      - file
 
 
 server:
@@ -20,3 +21,5 @@ server:
 spring:
   profiles: dev
 
+file-path:
+  root: D:/springboot/${spring.application.name}-${spring.profiles}

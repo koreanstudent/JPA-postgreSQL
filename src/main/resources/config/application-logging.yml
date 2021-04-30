@@ -4,11 +4,15 @@ spring:
     - dev
 
 logging:
+  file:
+    max-history: 3 # 로그 파일 삭제 주기이다. 3일 이후 로그는 삭제한다.
+    max-size: 30MB # 로그 파일 하나당 최대 파일 사이즈이다.
+    name: ${file-path.log.root}/${spring.profiles} # 로깅 파일 위치
   level:
     org.hibernate.SQL: DEBUG
 #    org.hibernate.type: trace
     com.chang.soloproject.solo_project: debug
-    org.springframework.secruity: DEBUG
+#    org.springframework.secruity: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 ---
@@ -17,11 +21,3 @@ spring:
     - test
     - prod
 
-logging:
-  file:
-    max-history: 30
-    max-size: 30MB
-    name: ${file-path.log.root}/${spring.profiles}
-  level:
-    org.hibernate.SQL: debug
-    com.soon83.projectmanager: debug

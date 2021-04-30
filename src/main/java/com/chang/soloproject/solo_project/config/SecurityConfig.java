@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.POST, "/api/login").permitAll() // 인증
-                .mvcMatchers(HttpMethod.GET, "/api/test/login").permitAll() // 인증
+                .mvcMatchers(HttpMethod.GET, "/api/login").permitAll() // 인증
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
 
