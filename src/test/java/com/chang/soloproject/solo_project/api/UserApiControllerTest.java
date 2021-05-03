@@ -17,6 +17,8 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,10 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserApiControllerTest extends BaseTest {
 
     @Test
-    @DisplayName("유저 조회 - /api/user")
-    public void findUser() throws Exception {
+    @DisplayName("유저 목록조회 - /api/user")
+    public void findUsers() throws Exception {
 
-        String loginId = "user123";
 
 
         ResultActions result = mockMvc.perform(
@@ -41,7 +42,7 @@ public class UserApiControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"))
                 .andDo(print())
-                .andDo(document("find-user",
+                .andDo(document("find-users",
 
                         responseFields(
                                 fieldWithPath("data[0].userId").type(JsonFieldType.NUMBER).description("유저 아이디"),
@@ -57,6 +58,47 @@ public class UserApiControllerTest extends BaseTest {
 
 
                                 )
+
+
+                ));
+
+    }
+
+    @Test
+    @DisplayName("유저 단건조회 - /api/user/{userid}")
+    public void findUser() throws Exception {
+
+        String userId = "1";
+
+
+        ResultActions result = mockMvc.perform(
+                RestDocumentationRequestBuilders.get("/api/user/{userId}" ,userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        result
+                .andExpect(status().isOk())
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"))
+                .andDo(print())
+                .andDo(document("find-user",
+
+                    pathParameters(
+                            parameterWithName("userId").description("사용자 아이디")
+                    ),
+
+                    responseFields(
+                            fieldWithPath("data.userId").type(JsonFieldType.NUMBER).description("유저 아이디"),
+                            fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
+                            fieldWithPath("data.password").type(JsonFieldType.STRING).description("로그인 비밀번호"),
+                            fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
+                            fieldWithPath("data.role").type(JsonFieldType.STRING).description("직위"),
+                            fieldWithPath("data.roleTitle").type(JsonFieldType.STRING).description("직위 한글"),
+                            fieldWithPath("data.permissions").type(JsonFieldType.STRING).description("권한"),
+                            fieldWithPath("code").type(JsonFieldType.STRING).description("코드"),
+                            fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                            fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN).description("성공여부")
+                    )
 
 
                 ));

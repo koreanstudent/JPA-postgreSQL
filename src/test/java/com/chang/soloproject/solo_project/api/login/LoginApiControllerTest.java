@@ -45,9 +45,6 @@ public class LoginApiControllerTest extends BaseTest {
 
 
         UserRes user = userService.findByLoginId(loginId);
-        System.out.println("$$$$$$$$$$$$" + user);
-        System.out.println("$$$$$$$$$$$$" + user.getLoginId());
-
 
         AccountGetReq request = new AccountGetReq();
         request.setLoginId(user.getLoginId());

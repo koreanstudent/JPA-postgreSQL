@@ -5,6 +5,7 @@
 :source-highlighter: highlightjs
 :toc: left
 :toclevels: 4
+:operation-path-parameters-title: 요청 필드
 :operation-request-fields-title: 요청 필드
 :operation-response-fields-title: 응답 필드
 :operation-http-request-title: http 요청
@@ -26,12 +27,19 @@ operation::login-user[snippets='request-fields,http-request,http-response']
 
 operation::create-user[snippets='request-fields,http-request,http-response']
 
+[[resources-user-findUsers]]
+=== 사용자 목록조회
+
+`GET` 요청을 사용해서 사용자 목록조회 할 수 있다.
+
+operation::find-users[snippets='response-fields,http-request,http-response']
+
 [[resources-user-findUser]]
-=== 사용자 조회
+=== 사용자 단건조회
 
-`GET` 요청을 사용해서 유저를 조회 할 수 있다.
+`GET` 요청을 사용해서 사용자 단건조회 할 수 있다.
 
-operation::find-user[snippets='response-fields,http-request,http-response']
+operation::find-user[snippets='path-parameters,response-fields,http-request,http-response']
 
 
 

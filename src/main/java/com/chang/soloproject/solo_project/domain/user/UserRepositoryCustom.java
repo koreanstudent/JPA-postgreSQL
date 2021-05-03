@@ -2,6 +2,7 @@ package com.chang.soloproject.solo_project.domain.user;
 
 import com.chang.soloproject.solo_project.api.user.dto.UserRes;
 import com.chang.soloproject.solo_project.api.user.dto.UserSearchReq;
+import com.google.common.io.Files;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,4 +25,5 @@ public interface UserRepositoryCustom {
      * 중복 사용자 조회 (로그인 아이디)
      */
     boolean existsUserByLoginId(String loginId);
+
 }

@@ -6,6 +6,7 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jdk.nashorn.internal.objects.annotations.Where;
+import org.hibernate.annotations.Fetch;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class UserRepositoryImpl extends CustomQuerydslRepositorySupport implemen
         return users;
     }
 
+
     @Override
     public Optional<User> findByLoginId(String loginId) {
         final User fetchUser = queryFactory
@@ -52,6 +54,7 @@ public class UserRepositoryImpl extends CustomQuerydslRepositorySupport implemen
 
         return Optional.ofNullable(fetchFirstUser).orElse(0) > 0;
     }
+
 
 
 

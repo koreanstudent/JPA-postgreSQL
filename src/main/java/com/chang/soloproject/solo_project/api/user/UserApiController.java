@@ -31,6 +31,13 @@ public class UserApiController {
         return ResponseEntity.ok(Result.success(users));
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity findUser(@PathVariable Long userId){
+        UserRes user = userService.findUser(userId);
+
+        return ResponseEntity.ok(Result.success(user));
+    }
+
     @PostMapping
     public ResponseEntity saveUser(@RequestBody UserSaveReq userSaveReq) throws URISyntaxException {
         Long id = userService.saveUser(userSaveReq);

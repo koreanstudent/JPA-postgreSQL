@@ -39,10 +39,19 @@ public class UserService {
     }
 
     /**
-     * [사용자] 단건 조회
+     * [사용자] 로그인 아이디로 단건 조회
      */
     public UserRes findByLoginId(String loginId) {
         return userRepository.findByLoginId(loginId)
+                .map(UserRes::new)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
+    }
+
+    /**
+     * [사용자] 단건 조회
+     */
+    public UserRes findUser(Long userId) {
+        return  userRepository.findById(userId)
                 .map(UserRes::new)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
     }
