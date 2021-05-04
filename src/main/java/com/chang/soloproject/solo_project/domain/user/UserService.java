@@ -3,6 +3,7 @@ package com.chang.soloproject.solo_project.domain.user;
 import com.chang.soloproject.solo_project.api.user.dto.UserRes;
 import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
 import com.chang.soloproject.solo_project.api.user.dto.UserSearchReq;
+import com.chang.soloproject.solo_project.api.user.dto.UserUpdateReq;
 import com.chang.soloproject.solo_project.core.exception.BusinessException;
 import com.chang.soloproject.solo_project.core.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -50,9 +52,30 @@ public class UserService {
     /**
      * [사용자] 단건 조회
      */
+    @Transactional
     public UserRes findUser(Long userId) {
         return  userRepository.findById(userId)
                 .map(UserRes::new)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
+    }
+
+    public Long updateUser(Long userId, UserUpdateReq userUpdateReq) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
+
+        // 패스워드 암호화
+        if (userUpdateReq.getPassword() != null && !userUpdateReq.getPassword().trim().isEmpty()) {
+            String rawPassword = userUpdateReq.getPassword();
+            String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+            userUpdateReq.changePassword(encodedPassword);
+        }
+
+        user.update(
+                userUpdateReq.getPassword(),
+                userUpdateReq.getName(),
+                userUpdateReq.getPermissions(),
+                userUpdateReq.getRole()
+        );
+        return user.getId();
     }
 }

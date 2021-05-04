@@ -3,6 +3,7 @@ package com.chang.soloproject.solo_project.api.user;
 import com.chang.soloproject.solo_project.api.user.dto.UserRes;
 import com.chang.soloproject.solo_project.api.user.dto.UserSaveReq;
 import com.chang.soloproject.solo_project.api.user.dto.UserSearchReq;
+import com.chang.soloproject.solo_project.api.user.dto.UserUpdateReq;
 import com.chang.soloproject.solo_project.domain.user.User;
 import com.chang.soloproject.solo_project.domain.user.UserService;
 import com.chang.soloproject.solo_project.response.Result;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -44,5 +46,13 @@ public class UserApiController {
 
         return ResponseEntity.created(HttpUtil.getCurrentUri(id))
                 .body(Result.success());
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity updateUser(@PathVariable Long userId,
+                                      @RequestBody UserUpdateReq userUpdateReq) {
+        Long updatedId = userService.updateUser(userId, userUpdateReq);
+
+        return ResponseEntity.ok(Result.success(new UserRes(updatedId)));
     }
 }

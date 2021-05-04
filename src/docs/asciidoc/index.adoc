@@ -16,16 +16,8 @@
 
 operation::login-user[snippets='request-fields,http-request,http-response']
 
-
 [[resources-user]]
 == 사용자
-
-[[resources-user-create]]
-=== 사용자 생성
-
-`POST` 요청을 사용해서 새 유저를 만들 수 있다.
-
-operation::create-user[snippets='request-fields,http-request,http-response']
 
 [[resources-user-findUsers]]
 === 사용자 목록조회
@@ -40,6 +32,21 @@ operation::find-users[snippets='response-fields,http-request,http-response']
 `GET` 요청을 사용해서 사용자 단건조회 할 수 있다.
 
 operation::find-user[snippets='path-parameters,response-fields,http-request,http-response']
+
+[[resources-user-create]]
+=== 사용자 생성
+
+`POST` 요청을 사용해서 새 유저를 만들 수 있다.
+
+operation::create-user[snippets='request-fields,http-request,http-response']
+
+[[resources-user-update]]
+=== 사용자 수정
+
+`PUT` 요청을 사용해서 새 유저를 만들 수 있다.
+include::{snippets}/update-user/request-fields.adoc[]
+operation::update-user[snippets='request-fields,http-request,http-response']
+
 
 
 

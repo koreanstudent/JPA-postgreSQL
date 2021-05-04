@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
@@ -37,6 +38,13 @@ public class User {
 
     @Column(name = "user_permissions")
     private String permissions;  // 사용자 권한 READ, WRITE, UPDATE, DELETE
+
+    public void update(String password, String name, String permissions, UserRole role) {
+        if (password != null) this.password = password;
+        if (name != null) this.name = name;
+        if (permissions != null) this.permissions =permissions;
+        if (role != null) this.role = role;
+    }
 
 
 }
