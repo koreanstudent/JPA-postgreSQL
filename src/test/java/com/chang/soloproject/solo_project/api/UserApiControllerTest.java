@@ -20,6 +20,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.snippet.Attributes.attributes;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -47,7 +48,7 @@ public class UserApiControllerTest extends BaseTest {
                 .andDo(document("find-users",
 
                         responseFields(
-                                fieldWithPath("data[0].userId").type(JsonFieldType.NUMBER).attributes(key("format").value("A|B|O|AB")).description("유저 아이디"),
+                                fieldWithPath("data[0].userId").type(JsonFieldType.NUMBER).description("유저 아이디"),
                                 fieldWithPath("data[0].loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
                                 fieldWithPath("data[0].password").type(JsonFieldType.STRING).description("로그인 비밀번호"),
                                 fieldWithPath("data[0].name").type(JsonFieldType.STRING).description("이름"),
@@ -181,11 +182,12 @@ public class UserApiControllerTest extends BaseTest {
                                 parameterWithName("userId").description("사용자 아이디")
                         ),
                         requestFields(
+                                attributes(key("title").value("Fields for user creation")),
                                 fieldWithPath("loginId").type(JsonFieldType.STRING).attributes(key("format").value("A|B|O|AB")).description("로그인 아이디").optional(),
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("이름").optional(),
                                 fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호").optional(),
-                                fieldWithPath("permissions").type(JsonFieldType.STRING).attributes(key("format").value("A|B|O|AB")).description("권한").optional(),
-                                fieldWithPath("role").type(JsonFieldType.STRING).description("직위").optional()
+                                fieldWithPath("permissions").type(JsonFieldType.STRING).description("권한").optional(),
+                                fieldWithPath("role").type(JsonFieldType.STRING).attributes(key("format").value("admin,user")).description("직위").optional()
                         )
 
 
