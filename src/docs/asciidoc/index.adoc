@@ -49,7 +49,15 @@ operation::create-user[snippets='request-fields,http-request,http-response']
 === 사용자 수정
 
 `PUT` 요청을 사용해서 새 유저를 만들 수 있다.
+
 operation::update-user[snippets='request-fields,http-request,http-response']
+
+[[resources-user-delete]]
+=== 사용자 삭제
+
+`DELETE` 요청을 사용해서 새 유저를 만들 수 있다.
+
+operation::delete-user[snippets='path-parameters,http-request,http-response']
 
 
 

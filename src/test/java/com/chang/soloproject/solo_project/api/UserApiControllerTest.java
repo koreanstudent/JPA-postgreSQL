@@ -33,8 +33,6 @@ public class UserApiControllerTest extends BaseTest {
     @DisplayName("유저 목록조회 - /api/user")
     public void findUsers() throws Exception {
 
-
-
         ResultActions result = mockMvc.perform(
                 RestDocumentationRequestBuilders.get("/api/user")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -60,9 +58,7 @@ public class UserApiControllerTest extends BaseTest {
                                 fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN).description("성공여부")
 
 
-                                )
-
-
+                        )
                 ));
 
     }
@@ -73,9 +69,8 @@ public class UserApiControllerTest extends BaseTest {
 
         String userId = "1";
 
-
         ResultActions result = mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/api/user/{userId}" ,userId)
+                RestDocumentationRequestBuilders.get("/api/user/{userId}", userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -86,22 +81,22 @@ public class UserApiControllerTest extends BaseTest {
                 .andDo(print())
                 .andDo(document("find-user",
 
-                    pathParameters(
-                            parameterWithName("userId").description("사용자 아이디")
-                    ),
+                        pathParameters(
+                                parameterWithName("userId").description("사용자 아이디")
+                        ),
 
-                    responseFields(
-                            fieldWithPath("data.userId").type(JsonFieldType.NUMBER).description("유저 아이디"),
-                            fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
-                            fieldWithPath("data.password").type(JsonFieldType.STRING).description("로그인 비밀번호"),
-                            fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
-                            fieldWithPath("data.role").type(JsonFieldType.STRING).description("직위"),
-                            fieldWithPath("data.roleTitle").type(JsonFieldType.STRING).description("직위 한글"),
-                            fieldWithPath("data.permissions").type(JsonFieldType.STRING).description("권한"),
-                            fieldWithPath("code").type(JsonFieldType.STRING).description("코드"),
-                            fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
-                            fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN).description("성공여부")
-                    )
+                        responseFields(
+                                fieldWithPath("data.userId").type(JsonFieldType.NUMBER).description("유저 아이디"),
+                                fieldWithPath("data.loginId").type(JsonFieldType.STRING).description("로그인 아이디"),
+                                fieldWithPath("data.password").type(JsonFieldType.STRING).description("로그인 비밀번호"),
+                                fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
+                                fieldWithPath("data.role").type(JsonFieldType.STRING).description("직위"),
+                                fieldWithPath("data.roleTitle").type(JsonFieldType.STRING).description("직위 한글"),
+                                fieldWithPath("data.permissions").type(JsonFieldType.STRING).description("권한"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("코드"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("메세지"),
+                                fieldWithPath("isSuccess").type(JsonFieldType.BOOLEAN).description("성공여부")
+                        )
 
 
                 ));
@@ -137,7 +132,7 @@ public class UserApiControllerTest extends BaseTest {
                 .andDo(print())
                 .andDo(document("create-user",
                         requestHeaders(
-                        headerWithName(HttpHeaders.ACCEPT).description("accept header")
+                                headerWithName(HttpHeaders.ACCEPT).description("accept header")
                         ),
                         requestFields(
                                 fieldWithPath("loginId").description("로그인 아이디"),
@@ -147,7 +142,7 @@ public class UserApiControllerTest extends BaseTest {
                                 fieldWithPath("role").description("직위")
                         )
 
-                        ));
+                ));
 
     }
 
@@ -189,10 +184,33 @@ public class UserApiControllerTest extends BaseTest {
                                 fieldWithPath("permissions").type(JsonFieldType.STRING).description("권한").optional(),
                                 fieldWithPath("role").type(JsonFieldType.STRING).attributes(key("format").value("admin,user")).description("직위").optional()
                         )
-
-
                 ));
 
+    }
+
+    @Test
+    @DisplayName("유저 단건 삭제")
+    public void deleteUser() throws Exception {
+        Long userId = 1L;
+
+        ResultActions result = mockMvc.perform(
+                RestDocumentationRequestBuilders.delete("/api/user/{userId}", userId)
+                        .content(objectMapper.writeValueAsString(userId))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        result
+                .andExpect(status().isOk())
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8"))
+                .andDo(print())
+                .andDo(document("delete-user",
+
+                        pathParameters(
+                                parameterWithName("userId").description("사용자 아이디")
+                        )
+
+                ));
     }
 
 }

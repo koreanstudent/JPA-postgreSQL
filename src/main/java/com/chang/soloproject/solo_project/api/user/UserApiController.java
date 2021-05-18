@@ -26,6 +26,9 @@ public class UserApiController {
 
     private final UserService userService;
 
+    /**
+     * [사용자] 목록 조회
+     */
     @GetMapping
     public ResponseEntity findUsers(@ModelAttribute UserSearchReq userSearchReq){
         List<UserRes> users = userService.findUsers(userSearchReq);
@@ -33,6 +36,9 @@ public class UserApiController {
         return ResponseEntity.ok(Result.success(users));
     }
 
+    /**
+     * [사용자] 단건 조회
+     */
     @GetMapping("/{userId}")
     public ResponseEntity findUser(@PathVariable Long userId){
         UserRes user = userService.findUser(userId);
@@ -40,6 +46,9 @@ public class UserApiController {
         return ResponseEntity.ok(Result.success(user));
     }
 
+    /**
+     * [사용자] 단건 등록
+     */
     @PostMapping
     public ResponseEntity saveUser(@RequestBody UserSaveReq userSaveReq) throws URISyntaxException {
         Long id = userService.saveUser(userSaveReq);
@@ -48,11 +57,26 @@ public class UserApiController {
                 .body(Result.success());
     }
 
+    /**
+     * [사용자] 단건 수정
+     */
     @PutMapping("/{userId}")
     public ResponseEntity updateUser(@PathVariable Long userId,
                                       @RequestBody UserUpdateReq userUpdateReq) {
         Long updatedId = userService.updateUser(userId, userUpdateReq);
 
         return ResponseEntity.ok(Result.success(new UserRes(updatedId)));
+    }
+
+    /**
+     * [사용자] 단건 삭제
+     */
+    @DeleteMapping("/{userId}")
+    public ResponseEntity deleteUser(@PathVariable Long userId) {
+
+        log.debug("deleteUser: {}" + userId);
+        userService.deleteUser(userId);
+
+        return ResponseEntity.ok(Result.success());
     }
 }

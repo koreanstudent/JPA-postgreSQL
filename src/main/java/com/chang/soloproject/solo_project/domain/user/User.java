@@ -46,5 +46,4 @@ public class User {
         if (role != null) this.role = role;
     }
 
-
 }

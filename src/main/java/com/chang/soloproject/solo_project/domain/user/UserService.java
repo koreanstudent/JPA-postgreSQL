@@ -36,6 +36,9 @@ public class UserService {
 
     }
 
+    /**
+     * [사용자] 다건 조회
+     */
     public List<UserRes> findUsers(UserSearchReq userSearchReq){
         return userRepository.findUsers(userSearchReq).stream().map(UserRes::new).collect(Collectors.toList());
     }
@@ -52,13 +55,16 @@ public class UserService {
     /**
      * [사용자] 단건 조회
      */
-    @Transactional
     public UserRes findUser(Long userId) {
         return  userRepository.findById(userId)
                 .map(UserRes::new)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
     }
 
+    /**
+     * [사용자] 단건 수정
+     */
+    @Transactional
     public Long updateUser(Long userId, UserUpdateReq userUpdateReq) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
@@ -77,5 +83,17 @@ public class UserService {
                 userUpdateReq.getRole()
         );
         return user.getId();
+    }
+
+    /**
+     * [사용자] 단건 삭제
+     */
+    @Transactional
+    public void deleteUser(Long userId) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER));
+
+        userRepository.delete(user);
     }
 }
